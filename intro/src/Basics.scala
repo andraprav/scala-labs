@@ -57,15 +57,30 @@ object Basics {
     powerSetRec = undefined
     */
 
-  def concatElemToList[A](x: List[A], list: List[A]) = (x,list) match {
-    case (_, Nil)    => Nil
-    case (x, (h::t)) => List(x, h) :+ (concatElemToList(x, t))
+  def concatElemToList[A](x: A, list: List[A]): List[Any] = (x,list) match {
+    case (x, Nil)     =>
+      List(List(x))
+    case (x, ((h:List[_]) :: t)) =>
+      (x :: h) :: (concatElemToList(x, t))
+    case (x, (h::t))  =>
+      List(x, h) :: (concatElemToList(x, t))
+  }
+  
+  def powerSetRec[A] (a: List[A]): List[Any] = a match {
+    case Nil    =>
+      List( )
+    case (h::t) =>
+      powerSetRec(t) ++ concatElemToList(h, powerSetRec (t))
   }
 
-  def powerSetRec[A] (a: List[A]): List[Any] = a match {
-    case Nil    => List(List())
-    case (h::t) => powerSetRec(t) ++ concatElemToList(h, (powerSetRec (t)))
-  }
+  /**
+    * 6. (1.5p)
+    Same as (5), but use higher-order functions instead.
+    Do NOT employ explicit recursion.
+    Make sure that your solution faithfully reflects the process from (5).
+    */
+
+
 }
 
 object Main extends App {
@@ -76,4 +91,5 @@ object Main extends App {
   println(reverseRec3(List(List(1, 2, 3), List("a", "b", "c"))))
   println(reverseRec3(List(List(1, 2, 3), List("a", "b", "c"))))
 
+  println(powerSetRec(List("a", "b", "c")))
 }
