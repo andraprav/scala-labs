@@ -58,19 +58,14 @@ object Basics {
     */
 
   def concatElemToList[A](x: A, list: List[A]): List[Any] = (x,list) match {
-    case (x, Nil)     =>
-      List(List(x))
-    case (x, ((h:List[_]) :: t)) =>
-      (x :: h) :: (concatElemToList(x, t))
-    case (x, (h::t))  =>
-      List(x, h) :: (concatElemToList(x, t))
+    case (x, Nil)                 => List(List(x))
+    case (x, ((h:List[_]) :: t))  => (x :: h) :: (concatElemToList(x, t))
+    case (x, (h::t))              => List(x, h) :: (concatElemToList(x, t))
   }
-  
+
   def powerSetRec[A] (a: List[A]): List[Any] = a match {
-    case Nil    =>
-      List( )
-    case (h::t) =>
-      powerSetRec(t) ++ concatElemToList(h, powerSetRec (t))
+    case Nil    => List()
+    case (h::t) => powerSetRec(t) ++ concatElemToList(h, powerSetRec (t))
   }
 
   /**
@@ -80,6 +75,38 @@ object Basics {
     Make sure that your solution faithfully reflects the process from (5).
     */
 
+  def powerSetHO[A] : (List[A] => List[Any]) =
+    (list: List[A]) => list.foldLeft(List[Any]()){
+      (acum: List[Any], x: A) =>
+        acum :+ acum.map( a => List(x,a))}
+
+  /**
+    * 7. (0.5p)
+    Compute the cartesian product of two lists, using list comprehensions.
+    cartesian2 :: [a] -> [b] -> [(a, b)]
+    cartesian2 l1 l2= [ (x,y) | x<-l1, y<-l2]
+    */
+  def cartesian2[A, B](l1: List[A], l2: List[B]): List[(A, B)] =
+    for {
+      x <- l1
+      y <- l2
+    } yield (x,y)
+
+  /**
+    * 8. (2p)
+    Similar to (7), but extend to any number of lists.
+    cartesian :: [[a]] -> [[a]]
+    cartesian [] = [[]]
+    cartesian (head:tail) = [(x:xs) | x<-head, xs<-(cartesian tail)]
+    */
+
+  def cartesian(l1: List[List[Any]]): List[List[Any]] = l1 match {
+    case Nil      => List(Nil)
+    case (h :: t) => for {
+      x <- h
+      xs <- cartesian (t)
+    } yield (x :: xs)
+  }
 
 }
 
@@ -92,4 +119,7 @@ object Main extends App {
   println(reverseRec3(List(List(1, 2, 3), List("a", "b", "c"))))
 
   println(powerSetRec(List("a", "b", "c")))
+  println(powerSetHO(List("a", "b", "c")))
+  println(cartesian2(List("a", "b", "c"), List(1, 2, 3)))
+  println(cartesian(List(List("a", "b"), List(1, 2, 3), List(2, 3))))
 }
