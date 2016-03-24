@@ -57,10 +57,10 @@ object Basics {
     powerSetRec = undefined
     */
 
-  def concatElemToList[A](x: A, list: List[A]): List[Any] = (x,list) match {
+  def concatElemToList[A](a: A, list: List[A]): List[Any] = (a,list) match {
     case (x, Nil)                 => List(List(x))
-    case (x, ((h:List[_]) :: t))  => (x :: h) :: (concatElemToList(x, t))
-    case (x, (h::t))              => List(x, h) :: (concatElemToList(x, t))
+    case (x, ((h:List[_]) :: t))  => (x :: h) :: concatElemToList(x, t)
+    case (x, (h::t))              => List(x, h) :: concatElemToList(x, t)
   }
 
   def powerSetRec[A] (a: List[A]): List[Any] = a match {
@@ -105,7 +105,7 @@ object Basics {
     case (h :: t) => for {
       x <- h
       xs <- cartesian (t)
-    } yield (x :: xs)
+    } yield x :: xs
   }
 
 }
