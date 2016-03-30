@@ -16,6 +16,18 @@ object MyList {
     def contents[A](a: List[A]) = identity(a)
   }
   implicit object InvertibleList extends Invertible[List[_]] {
-    def invert[A] = (list: List[A]) => list.reverse
+    //invert = reverse . map invert
+    //def invert[A] = (list: List[A]) => (reverse list compose map invert)
+
+    //def invert[A] = (list: List[A]) => list.reverse
+    //def reverse[A](ls: List[A]) = ls reverse
+    //override def invert[A]: List[A] => List[A] = list => list.reverse compose map invert _
+//    override def invert[A]: List[A] => List[A] = list => list.map((a) => invert(a)).reverse
+//     def invert(list: List[Any]): List[Any] = list.reverse.map((a) => invert(a))
+     def invert[A](list: List[A])(implicit ev: Invertible[A] = null): List[A] = Option(ev).map(r => list map r.reverse).getOrElse(list).reverse
+
   }
+}
+
+object A {
 }

@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa66e570-62d9-4929-9763-aa5ab6f58ed8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../types/.gitignore" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/intro/Basics$.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/intro/Basics.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/intro/Main$.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/intro/Main$delayedInit$body.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../types/src/Classes.scala" afterPath="$PROJECT_DIR$/../types/src/Classes.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../types/src/MyList.scala" afterPath="$PROJECT_DIR$/../types/src/MyList.scala" />
     </list>
     <ignored path="intro.iws" />
     <ignored path=".idea/workspace.xml" />

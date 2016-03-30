@@ -8,7 +8,7 @@ object Classes {
       using a Haskell list. What is the kind of 'c'?
     */
   trait Container[C[_]]{
-    def contents[A](a: C[A] ): List[A]
+    def contents[A](a: C[A]): List[A]
   }
 
   /**
@@ -16,6 +16,20 @@ object Classes {
       The default invert operation is the identity.
     */
   trait Invertible[A] {
-    def invert (a: A): A = identity(a)
+    def invert: A => A = identity
+  }
+
+  object Invertible {
+    implicit object InvertibleChar extends Invertible[Char] {
+      override def invert = identity
+    }
+
+    implicit object InvertibleInt extends Invertible[Int] {
+      override def invert = identity
+    }
+
+    implicit object InvertibleBool extends Invertible[Boolean] {
+      override def invert = identity
+    }
   }
 }
